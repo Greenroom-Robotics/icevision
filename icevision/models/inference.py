@@ -84,7 +84,7 @@ def _end2end_detect(
     else:
         record._unload()
 
-    w, h = img.shape
+    w, h = img.size
     record.set_img_size(ImgSize(width=w, height=h))
 
     pred_dict = record.as_dict()
@@ -97,7 +97,7 @@ def _end2end_detect(
 
     pred_dict["width"] = w
     pred_dict["height"] = h
-    # delete the `common` key that holds both the `img` and its shape
+    # delete the `common` key that holds both the `img` and its size
     del pred_dict["common"]
 
     # return a dict that contains the image with its predicted boxes (i.e. with resized boxes that match the original image size)
@@ -209,7 +209,7 @@ def draw_img_and_boxes(
 
     # convert dict to record
     record = ObjectDetectionRecord()
-    w, h = img.shape
+    w, h = img.size
     record.img = np.array(img)
     record.set_img_size(ImgSize(width=w, height=h))
     record.detection.set_class_map(class_map)
